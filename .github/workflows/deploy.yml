@@ -1,33 +1,34 @@
 name: deploy
-on: [push]
+on:
+  push:
+    branches: ["main"]
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
-    name: Deploy to Cloudflare Pages
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - name: Install mdbook-external-links
-        run: cargo install mdbook-external-links
+        uses: actions/checkout@v3
+
       - name: Install mdbook
         run: |
           mkdir mdbook
           curl -sSL https://github.com/rust-lang/mdBook/releases/download/v0.4.36/mdbook-v0.4.36-x86_64-unknown-linux-gnu.tar.gz | tar -xz --directory=./mdbook
           echo `pwd`/mdbook >> $GITHUB_PATH
-      
-      - name: Build book
+
+      - name: Generate rust docs
         run: mdbook build
 
-      - name: Publish
-        uses: cloudflare/pages-action@v1.4.0
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: foundry-book
-          directory: book
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          path: 'book'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
