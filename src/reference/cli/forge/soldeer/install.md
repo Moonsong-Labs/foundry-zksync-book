@@ -1,6 +1,6 @@
 # forge soldeer install
 
-Install a dependency from soldeer repository or from a custom url that points to a zip file or from
+Install a dependency from soldeer repository or from a custom url that points to a zip file.
 
 ```bash
 $ forge soldeer install --help
@@ -11,8 +11,7 @@ Arguments:
   [REMOTE_URL]  
 
 Options:
-      --rev <REV>  
-  -h, --help       Print help
+  -h, --help  Print help
 
 For more information, read the README.md
 ```
