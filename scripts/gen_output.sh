@@ -13,12 +13,12 @@ need_cmd git
 need_cmd mktemp
 need_cmd sed
 
-
+# download zksync nightlies
 download_nightlies
+
 need_cmd bin/forge
 need_cmd bin/cast
 
 gen_help
-# TODO enable it when fuzz testing failures are addressed
-# gen_forge
-# gen_cast
+gen_forge
+gen_cast
