@@ -1,6 +1,6 @@
 // ANCHOR: all
 // ANCHOR: command
-$ /media/nish/storage/work/purestake/projects/foundry-zksync-book/bin/forge install
+$ forge install
 // ANCHOR_END: command
 // ANCHOR: output
 

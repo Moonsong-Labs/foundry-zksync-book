@@ -1,10 +1,10 @@
 // ANCHOR: all
 // ANCHOR: command
-$ /media/nish/storage/work/purestake/projects/foundry-zksync-book/bin/forge build
+$ forge build
 // ANCHOR_END: command
 // ANCHOR: output
 Compiling 27 files with Solc 0.8.26
-Solc 0.8.26 finished in 685.07ms
+Solc 0.8.26 finished in 703.68ms
 Compiler run successful!
 // ANCHOR_END: output
 // ANCHOR_END: all

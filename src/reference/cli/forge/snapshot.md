@@ -44,6 +44,15 @@ Test options:
           
           For more fine-grained control of which fuzz case is run, see forge run.
 
+      --decode-internal [<TEST_FUNCTION>]
+          Whether to identify internal functions in traces.
+          
+          If no argument is passed to this flag, it will trace internal functions scope and decode stack parameters, but parameters stored in memory (such as bytes or arrays) will not be decoded.
+          
+          To decode memory parameters, you should pass an argument with a test function name, similarly to --debug and --match-test.
+          
+          If more than one test matches your specified criteria, you must add additional filters until only one test is found (see --match-contract and --match-path).
+
       --gas-report
           Print a gas report
           
@@ -71,11 +80,16 @@ Test options:
       --fuzz-input-file <FUZZ_INPUT_FILE>
           File to rerun fuzz failures from
 
-      --max-threads <MAX_THREADS>
+  -j, --threads <THREADS>
           Max concurrent threads to use. Default value is the number of available CPUs
+          
+          [aliases: jobs]
+
+      --show-progress
+          Show test execution progress
 
 Display options:
-  -j, --json
+      --json
           Output test results in JSON format
 
   -l, --list
@@ -117,6 +131,14 @@ Test filtering:
           Only run tests in source files that do not match the specified glob pattern
           
           [aliases: nmp]
+
+      --no-match-coverage <REGEX>
+          Only show coverage for files that do not match the specified regex pattern
+          
+          [aliases: nmco]
+
+      --rerun
+          Re-run recorded test failures from last run. If no failure recorded then regular test run is performed
 
 EVM options:
   -f, --fork-url <URL>
@@ -432,15 +454,12 @@ Watch options:
       --watch-delay <DELAY>
           File update debounce delay.
           
-          During the delay, incoming change events are accumulated and only once the delay has passed, is an action taken. Note that this does not mean a command will be started: if --no-restart is given and a command is already running, the outcome of the
-          action will be to do nothing.
+          During the delay, incoming change events are accumulated and only once the delay has passed, is an action taken. Note that this does not mean a command will be started: if --no-restart is given and a command is already running, the outcome of the action will be to do
+          nothing.
           
           Defaults to 50ms. Parses as decimal seconds by default, but using an integer with the `ms` suffix may be more convenient.
           
           When using --poll mode, you'll want a larger duration, or risk overloading disk I/O.
-
-      --show-progress
-          Show test execution progress
 
       --asc
           Sort results by gas used (ascending)
